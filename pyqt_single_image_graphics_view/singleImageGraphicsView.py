@@ -19,7 +19,8 @@ class SingleImageGraphicsView(QGraphicsView):
         self._set_scene()
 
     def _set_scene(self):
-        p = self._p.scaled(self.width(), self.height(), self.__aspectRatioMode, Qt.SmoothTransformation)
+        viewport = self.viewport()
+        p = self._p.scaled(viewport.width(), viewport.height(), self.__aspectRatioMode, Qt.SmoothTransformation)
         self._scene = QGraphicsScene()
         self._item = self._scene.addPixmap(p)
         self._scene.addItem(self._item)
