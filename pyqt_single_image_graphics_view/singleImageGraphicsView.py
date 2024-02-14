@@ -21,17 +21,17 @@ class SingleImageGraphicsView(QGraphicsView):
     def setPixmap(self, p):
         self._setPixmap(p)
 
-    def _setPixmap(self, p):
-        self._p = p
+    def _set_scene(self):
+        p = self._p.scaled(self.width(), self.height(), self.__aspectRatioMode, Qt.SmoothTransformation)
         self._scene = QGraphicsScene()
-        self._item = self._scene.addPixmap(self._p)
+        self._item = self._scene.addPixmap(p)
+        self._scene.addItem(self._item)
         self.setScene(self._scene)
-        self.fitInView(self._item, self.__aspectRatioMode)
 
     def setAspectRatioMode(self, mode):
         self.__aspectRatioMode = mode
 
     def resizeEvent(self, e):
         if self._item:
-            self.fitInView(self._item, self.__aspectRatioMode)
+            self._set_scene()
         return super().resizeEvent(e)
